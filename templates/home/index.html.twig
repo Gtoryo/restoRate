@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil !{% endblock %}
+
+{% block body %}
+    {% include "_Partials/_header.html.twig" %}
+
+    {% include "_Partials/_messages.html.twig" %}
+
+    <div class="pt-8">
+        <section class="px-10">
+            <div class="bg-cover bg-no-repeat pt-100  flex justify-center items-center" style="background-image: url('{{ asset('assets/images/option_3.jpg') }}'); height: 40vh">
+                <div class="flex flex-col w-full">
+                    <div class="">
+                        <h1 class="text-center text-xl pb-4 font-bold text-white md:text-2xl">Bienvenue sur RestoRate !</h1>
+                        <p class="text-center text-white pb-2 md:text-xl">Quel restaurant allons-nous noter aujourd'hui ?</p>
+                    </div>
+
+                    {{ form_start(restoForm, {'attr': {'class': 'flex justify-center items-center'}}) }}
+                        {{ form_row(restoForm.codePostale, {'attr': {'class': 'w-full border border-solid border-white rounded-l pl-6 py-2 outline-none text-sm', 'placeholder': 'Code Postal'}}) }}
+                        <input type="submit" class="px-4 py-2 text-white bg-green-500 rounded-r border border-solid border-green-500 text-sm"/>
+                    {{ form_end(restoForm) }}
+                </div>
+            </div>
+        </section>
+
+        <main class="mt-4 p-4">
+            <h2 class="text-xl font-semibold text-center pb-4">Les restaurants les mieux notés</h2>
+
+            <div class="flex flex-col items-center md:flex md:flex-row md:flex-wrap md:justify-center">
+                {% for resto in restaurants %}
+                    <div class="border border-black rounded m-4 w-80">
+                        <a href="{{ path('details_resto', {'restoId': resto.id})}}" class="">
+                            <div class="bg-yellow-500">
+                                {% if resto.images is not empty %}
+                                    {% for image in resto.images %}
+                                        <div class="bg-cover bg-no-repeat pt-100 w-full flex justify-center items-center" style="background-image: url('{{ asset('assets/uploads/restaurants/mini/250x250-' ~ image.nomImage)}}')"></div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="h-60 flex justify-center items-center">
+                                        <p class="text-center">Aucune image associée</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="pt-4 px-2">
+                                <p class="text-md font-semibold pb-2">{{ resto.nomResto }}</p>
+                                <p class="text-sm pb-2">{{ resto.adresse }}, {{ resto.codePostale }}</p>
+                                {% if resto.avis is not empty %}
+                                    <div class="flex items-center pb-2">
+                                        {% for i in 1..5 %}
+                                            {% if i <= moyenne %}
+                                                <div class="star m-1 rounded-full border-2 border-solid border-green-500 w-4 h-4 bg-green-500"></div>
+                                            {% else %}
+                                                <div class="star m-1 rounded-full border-2 border-solid border-green-500 w-4 h-4"></div>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <p class="pl-2">{{moyenne}}</p>
+                                    </div>
+
+                                {% endif %}
+                                <p class="text-sm pb-2 font-semibold">{{ resto.description }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </main>
+
+    </div>
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}

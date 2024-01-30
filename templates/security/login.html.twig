@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Authentification{% endblock %}
+
+{% block body %}
+
+    <form method="post" class="flex flex-col justify-center px-10 pt-10">
+
+        <div class="mb-6">
+            <a href="{{ path('accueil')}}" class="text-2xl font-bold text-green-500">RestoRate</a>
+        </div>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                Vous êtes connecteé(e) en tant que  {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+            </div>
+        {% endif %}
+
+        <div class="md:flex flex-col md:h-full justify-center items-center md:px-40 md:pt-10 lg:px-80">
+            <h1 class="text-center text-2xl font-semibold mb-6">Bon retour !</h1>
+
+            <div class="flex flex-col w-full">
+                <label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="rounded border border-slate-600 outline-none p-2 mt-2" autocomplete="email" required autofocus placeholder="E-mail">
+            </div>
+            <div class="flex flex-col w-full">
+                <label for="inputPassword" class="pt-2">Password</label>
+                <input type="password" name="password" id="inputPassword" class="rounded border border-slate-600 outline-none p-2 mt-2" autocomplete="current-password" required placeholder="Mot de passe">
+            </div>
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+            <input  value="Se connecter" type="submit" class="bg-black text-white rounded py-2 mt-4 w-full"/>
+
+            <div class="mt-10 w-full">
+                <div class="flex items-center mb-4">
+                    <hr class="flex-grow border-t border-gray-300">
+                    <p class="mx-4">Pas encore membre ?</p>
+                    <hr class="flex-grow border-t border-gray-300">
+                </div>
+                <a href="{{ path('app_register')}}" class="block text-center"><span class="underline ">Incriver-vous</span> pour plus d'options</a>
+            </div>
+        </div>
+
+        
+    </form>
+
+{% endblock %}

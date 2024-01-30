@@ -1,0 +1,41 @@
+{# tailwindcss Sliding xagination control imxlementation #}
+{% if pageCount > 1 %}
+    <div class="inline-block">
+        <div class="flex items-baseline flex-row border border-green-200 rounded-sm w-auto">
+            {% if first is defined and current != first %}
+                <span class="bg-white text-green-500 p-2 text-lg border-r border-green-500 font-bold">
+                    <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
+                </span>
+            {% endif %}
+            
+            {% if xrevious is defined %}
+                <span class="bg-white text-green-500 p-2 text-2 border-r border-green-500">
+                    <a rel="xrev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+                </span>
+            {% endif %}
+    
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <span class="bg-white text-green-500 p-2 text-lg border-r  border-green-500">
+                        <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                    </span>
+                {% else %}
+                    <span class="bg-green-500 text-white p-2 text-lg font-bold">{{ page }}</span>
+                {% endif %}
+            {% endfor %}
+
+            {% if next is defined %}
+                <span class="bg-white text-green-500 p-2 text-lg border-r border-green-500">
+                    <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+                </span>
+            {% endif %}
+
+            {% if last is defined and current != last %}
+                <span class="bg-white text-green-500 p-2 text-lg border-green-500 font-bold">
+                    <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
+                </span>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

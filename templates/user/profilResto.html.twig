@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profil Utilsateur{% endblock %}
+
+{% block body %}
+
+    {% include "_Partials/_header.html.twig" %}
+
+
+        <div class=" h-screen flex mb-6 relative">
+        
+            {% include "_Partials/_menuRestaurateur.html.twig" %}
+
+            <div class="pt-6 px-4 w-full md:px-10 lg:px-20 ">
+
+                <button class="p-2 mb-4 border border-black rounded text-white bg-black md:static" id="menutoggle">Plus</button>
+
+                <h1 class="text-center text-xl font-bold mb-10 py-1 bg-green-500 text-white rounded-l rounded-r">Gerer mes restaurants</h1>
+
+                {% if restaurants %}
+
+                    <div class="h-2/3 ">
+                        {% for resto in restaurants %}
+                        
+                            <div class="">
+                                <div class="">
+                                    <div class="flex justify-between w-full border p-2 bg-green-500 text-white mb-2 rounded-l rounded-r">
+                                        <a href="{{ path('app_details', {'idResto': resto.id})}}" class="">{{ resto.nomResto }}</a>
+                                        <a href="{{ path('app_delete', {'idResto': resto.id}) }}" class=" hover:underline">Supprimer</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+                    </div>    
+                    
+                    <div class="flex justify-end pr-6">
+                        <a class="bg-green-500 text-white rounded-l rounded-r p-2" href="{{ path('new_resto')}}">Ajouter</a>
+                    </div>
+                    
+                {% else %}
+
+                    <div class="h-2/3 flex justify-center items-center mb-6">
+
+                        <div class="">
+                            <h2 class="text-xl text-green-500 text-center font-bold">Vous n'avez pas encore de restaurant </h2>
+                        </div>
+
+                    </div>
+
+                    <div class="flex justify-end pr-6">
+                        <a class="bg-green-500 text-white p-2 rounded-l rounded-r" href="{{ path('new_resto')}}">Commencer</a>
+                    </div>
+
+                {% endif %}
+
+            </div>
+        
+        </div>    
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}
+
+

@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Details sur le restaurant{% endblock %}
+
+{% block body %}
+
+    {% include "_Partials/_header.html.twig" %}
+
+    <div class="px-10 pt-10">
+        
+        <h1 class="text-xl text-center font-bold mb-8">Mettez à jour les infos de votre restaurant</h1>
+
+        {{ form_start(restoForm, {'attr': {'class': 'flex '}})}}
+
+            <div class="flex flex-col w-full">
+            
+                <div class="flex flex-col mb-2 ">
+                    {{form_row(restoForm.nomResto, {'attr': {'class': 'block outline-none border-b p-2 my-4 w-full', 'placeholder': 'Nom'}})}}
+                </div>
+                <div class="flex flex-col mb-2 ">
+                    {{form_row(restoForm.description, {'attr': {'class': 'block outline-none border-b p-2 my-4 w-full resize-none', 'placeholder': 'En quelque mots ce que vous vendez'}})}}
+                </div>
+                <div class="flex flex-col mb-2 ">
+                    {{form_row(restoForm.adresse, {'attr': {'class': 'block outline-none border-b p-2 my-4 w-full', 'placeholder': '8 rue du jardin'}})}}
+                </div>
+                <div class="flex flex-col mb-2 ">
+                    {{form_row(restoForm.codePostale, {'attr': {'class': 'block outline-none border-b p-2 my-4 w-full', 'placeholder': 'code Postale'}})}}
+                </div>
+                <div class="flex flex-col mb-2 ">
+                    {{form_row(restoForm.ville, {'attr': {'class': ' block outline-none border-b p-2 my-4 w-full', 'placeholder': 'ville'}})}}
+                </div>
+                <div class="flex flex-col mb-2 ">
+                    {{form_row(restoForm.telephone, {'attr': {'class': 'block outline-none border-b p-2 my-4 w-full', 'placeholder': 'téléphone',}})}}
+                </div>
+                <div>
+                    <h2 class="text-xl font-semibold">Galerie d'images</h2>
+                    <div class="">
+                        {% if restoForm.images %}
+                            {% for image in restoForm.images %}
+                                <img src="{{ asset('assets/uploads/restaurants/mini/250x250-' ~ image.nomImage)}}" alt="Image" class="m-4" width = "150"/>
+                            {% endfor %}
+
+                        {% else %}
+                            <h2>Aucune images touvées</h2>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {{form_row(restoForm.images, {'attr': {'class': 'p-2 my-4 w-full'}})}}
+                    </div>
+                </div>
+
+                <input type="submit" class="bg-black text-white rounded py-2 my-4 w-full" value="{{ button_label|default('Ajouter') }}"/>
+
+            </div>
+            
+            
+        {{ form_end(restoForm)}}
+    
+    </div>
+
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}

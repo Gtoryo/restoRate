@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Donner un avis {% endblock %}
+
+{% block body %}
+
+    {% include "_partials/_header.html.twig" %}
+
+    <div class="px-6 md:grid md:grid-cols-3">
+
+        <div class="hidden md:col-span-1 md:border-r md:flex-col md:items-center md:justify-center md:my-8 md:block md:pt-10 md:px-6">
+            <h1 class="text-3xl font-semibold">Dites nous comment s'est passée votre visite</h1>
+            <div class="mt-20 border">
+                {% if resto.images is not empty %}
+                    {% for image in resto.images %}
+                        <div>
+                            <img src="{{ asset('assets/uploads/restaurants/mini/250x250-' ~ image.nomImage)}}" alt="Image" class="m-4" width="100"/>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="h-40 flex justify-center items-center">
+                        <p class="text-center">Aucune image associée</p>
+                    </div>
+                {% endif %}
+                 <div class="pl-4">
+                    <p>{{resto.adresse}}</p>
+                    <p>{{resto.ville}}</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="md:col-span-2 p-8">
+            <div class="flex items-center mb-10 px-6 border mt-6">
+                <div>
+                    {% if resto.images is not empty %}
+                        {% for image in resto.images %}
+                            <div>
+                                <img src="{{ asset('assets/uploads/restaurants/mini/250x250-' ~ image.nomImage)}}" alt="Image" class="m-4" width = "100"/>
+                            </div>
+                        {% endfor %}
+
+                    {% else %}
+                        <div class="h-20 flex justify-center items-center">
+                            <p class="text-centser">Aucune image associée</p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="pl-4">
+                    <p>{{resto.adresse}}</p>
+                    <p>{{resto.ville}}</p>
+                </div>
+            </div>
+        
+            {{ form_start(formAvis) }}
+                <div class="mb-6">
+                    <h2 class="text-2xl font-semibold mb-4">Quelle note donneriez vous à votre expérience chez {{resto.nomResto}}</h2>
+                    <div class="flex py-10">
+                        <div class="star-item m-2 rounded-full border-2 border-solid border-green-500 w-8 h-8" data-value="1"></div>
+                        <div class="star-item m-2 rounded-full border-2 border-solid border-green-500 w-8 h-8" data-value="2"></div>
+                        <div class="star-item m-2 rounded-full border-2 border-solid border-green-500 w-8 h-8" data-value="3"></div>
+                        <div class="star-item m-2 rounded-full border-2 border-solid border-green-500 w-8 h-8" data-value="4"></div>
+                        <div class="star-item m-2 rounded-full border-2 border-solid border-green-500 w-8 h-8" data-value="5"></div>
+                    </div>
+                    {{ form_row(formAvis.note, {'attr': {'class': 'outline-none border border-solid border-slate-600 p-2 w-full hidden'}, 'value': '0', 'id': 'note'}) }}
+                </div>
+                <div class="mb-8">
+                    <h2 class="text-2xl mb-4 font-semibold">Donnez un titre à votre avis</h2>
+                    {{ form_row(formAvis.titre, {'attr': {'class': 'outline-none border border-solid border-slate-600 p-2 w-full rounded', 'placeholder': 'Titre de votre commentaire'}} )}}
+                </div>
+                <div class="mb-8">
+                    <h2 class="text-2xl mb-4 font-semibold">Ajouter votre commentaire</h2>
+                    {{ form_row(formAvis.commentaire, {'attr': {'class': 'outline-none h-40 border border-solid border-slate-600 p-2 w-full resize-none rounded', 'placeholder': 'Decrivez nous votre expérience'}}) }}
+                </div>
+                <input type="submit" value="Envoyer" class="bg-black text-white rounded py-2 mt-4 w-full"/>
+            {{ form_end(formAvis)}}
+        </div>
+
+    </div>
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}

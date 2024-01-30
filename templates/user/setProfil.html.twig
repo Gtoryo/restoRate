@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    {% include "_Partials/_header.html.twig" %}
+
+    <div class="p-10 h-screen md:flex flex-col items-center">
+
+        <h1 class="text-2xl text-center font-semibold mb-8">Modifier vos informations personnelles</h1>
+
+        {{ form_start(form, {'attr': {'class': 'md:w-full md:p-20'}}) }}
+
+            {{ form_row(form.prenom, {'attr': {'class': 'outline-none border-b  w-full mb-10 pt-4'}}) }}
+            {{ form_row(form.password, {'attr': {'class': 'outline-none border-b  w-full mb-10 pt-4'}}) }}
+
+            <input type="submit" value="modifier" class="w-full bg-black rounded text-white text-center py-1"/>
+        {{ form_end(form) }}
+
+    </div>
+
+    {% include "_Partials/_footer.html.twig" %}
+
+
+{% endblock %}

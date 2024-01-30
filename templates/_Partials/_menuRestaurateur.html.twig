@@ -1,0 +1,12 @@
+<div class="border-r bg-gray-200 p-4 hidden transition ease-in-out duration-700 h-full w-3/5 absolute more-action md:w-1/3  md:static">
+    <div class="mb-20">
+        <p class="text-center font-semibold text-xl mb-2">Hello !</p>
+        <p class="text-center">{{ app.user.nom }} {{ app.user.prenom }}</p>
+    </div>
+    <ul>
+        <li class="mb-2"><a class="hover:underline" href="{{ path('app_profil_info') }}">Mes restaurant</a></li>
+        <li class="mb-2"><a class="hover:underline" href="{{ path('app_mesAvis') }}">Gérer les avis</a></li>
+        <li class="mb-2"><a class="hover:underline" href="{{ path('app_profil_set') }}">Mes informations</a></li>
+        <li class="mb-2">Supprimer mon profil</li>
+    </ul>
+</div>

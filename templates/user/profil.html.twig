@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profil Utilsateur{% endblock %}
+
+{% block body %}
+
+    {% include "_Partials/_header.html.twig" %}
+
+
+    <div class="flex flex-col w-full justify-center h-screen p-10">
+    
+        <h1 class="text-2xl"><span class="mr-2 text-2xl font-bold">Hello</span> {{app.user.nom}} {{app.user.prenom}} !</h1>
+
+        <div class="p-4 mt-4 ">
+            <h2 class="text-2xl bg-gray-300 text-center">Vos informations personnelles</h2>
+            <div class="mt-6 p-4 border">
+                <p class="mb-2"><span class="mr-4">Nom:</span>{{app.user.nom}}</p>
+                <p><span class="mr-4">Prenom:</span>{{app.user.prenom}}</p>
+            </div>
+        </div>
+        
+        <div class="mt-8 p-4">
+            <h2 class="text-2xl pl-4 bg-gray-300">Actions</h2>
+        </div>
+
+        <ul class="p-4">
+            <li><a href="{{ path('app_profil_set')}}">Modifier mes informations</a></li>
+            <li class="mt-2">supprimer mon compte</li>
+        </ul>
+    
+    </div>    
+        
+
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}
+

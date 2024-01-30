@@ -1,0 +1,5 @@
+<h1>Activer votre compte</h1>
+<p>Bonjour {{user.prenom}}</p>
+<p>Votre inscription sur le site restorate est à valider en cliquant sur le lien ci-dessous:</p>
+<p><a href="{{ absolute_url(path('compte_verify', {token: token}))}}">Lien de validation</a></p>
+<p>Ce lien expire dans 3 heures</p>

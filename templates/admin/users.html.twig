@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des restaurants!{% endblock %}
+
+{% block body %}
+
+    {% include "_Partials/_header.html.twig" %}
+
+    <div class="container px-8 mt-8 h-screen">
+        <h1 class="text-3xl text-center font-bold mb-4">Liste des utilisateurs</h1>
+
+        <div class="flex justify-end mb-4">
+            <div class="ml-auto">
+                <a class="p-1 bg-green-500 text-white" href="{{ path('resto_list_resto')}}">Gérer les restaurants</a>
+            </div>
+        </div>
+
+
+        <table class="min-w-full border border-gray-300">
+            <thead>
+                <tr class="bg-gray-100 border-b  border-black">
+                    <th class="py-2 px-4 border-b">Nom</th>
+                    <th class="py-2 px-4 border-b">Role</th>
+                    <th class="py-2 px-4 border-b">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="py-2 px-4 border-b border-r">{{ user.nom }}</td>
+                        <td class="py-2 px-4 border-b border-r">{{ user.roles[0] }}</td>
+                        <td class="py-2 px-4 border-b">
+                            {# <a href="{{ path('resto_set_resto', {'id': resto.id}) }}" class="text-blue-500 hover:underline mr-2 ">Éditer</a> #}
+                            <a href="{{ path('user_delete', {'id': user.id}) }}" class="text-red-500 hover:underline">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="mt-4">
+            <nav class="flex justify-center">
+                {{ knp_pagination_render(users) }}
+            </nav>
+        </div>
+    </div>
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Gestion d'avis{% endblock %}
+
+{% block body %}
+
+    {% include "_Partials/_header.html.twig" %}
+
+    <div class=" h-screen flex mb-6 relative">
+
+        {% include "_Partials/_menuRestaurateur.html.twig" %}
+
+        <div class="pt-6 px-4 w-full md:px-10 lg:px-20 ">
+
+            <button class="p-2 mb-4 border border-black rounded text-white bg-black md:static" id="menutoggle">Plus</button>
+
+            <h1 class="text-center text-xl font-bold mb-10 py-1 bg-black text-white rounded-l rounded-r">les Avis</h1>
+
+            {% if allAvis %}
+                <div class="h-2/3">
+                    <table class="w-full border-collapse border">
+                        <thead>
+                            <tr class="bg-black text-white">
+                                <th class="p-2">Restaurant</th>
+                                <th class="p-2">Commentaire</th>
+                                <th class="p-2">Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           {% for avisData in allAvis %}
+                                {% for avis in avisData.avis %}
+                                    <tr class="border-b">
+                                        <td class="p-2 border-r ">{{ avisData.restaurant.nomResto }}</td>
+                                        <td class="p-2 border-r ">{{ avis.commentaire }}</td>
+                                        <td class="p-2 border-r ">{{ avis.note }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="h-3/4 flex justify-center items-center mb-6">
+                    <div class="">
+                        <h2 class="text-xl text-green-500 text-center font-bold">Vous n'avez pas encore d'avis</h2>
+                    </div>
+                </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}

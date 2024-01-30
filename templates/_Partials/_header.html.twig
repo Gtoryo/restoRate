@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <header class="flex justify-between items-center w-full shadow-md text-gray-800">
+        
+        <div>
+            <a href="{{ path('accueil') }}" class="pl-2 text-2xl font-bold text-green-500">RestoRate</a>
+        </div>
+        <div>
+            <ul class="flex justify-around items-center">
+                {# <li class="m-4 border border-solid bg-green-500 border-white rounded-full px-4 py-1">
+                    <a class="text-white" href="#">êtes vous restaurateur ?</a class="text-white">
+                </li> #}
+                {% if app.user %}
+                    <li class="m-4 border border-solid bg-green-500 border-white rounded-full px-4 py-1">
+                        <a class="text-white" href="{{ path('app_profil_info')}}">Profile</a class="text-white">
+                    </li>
+                    <li class="m-4 border border-solid bg-green-500 border-white rounded-full px-4 py-1">
+                        <a class="text-white" href="{{ path('app_logout') }}">logout</a class="text-white">
+                    </li>
+                {% else %}
+                    <li class="m-4 border border-solid bg-green-500 border-white rounded-full px-4 py-1">
+                        <a class="text-white" href="{{ path('app_login') }}">login</a class="text-white">
+                    </li>
+                    {# <li class="m-4 border border-solid bg-green-500 border-white rounded-full px-4 py-1">
+                        <a class="text-white" href="{{ path('app_register') }}">register</a class="text-white">
+                    </li>     #}
+                {% endif %}
+            </ul>
+        </div>
+
+    </header>
+
+{% endblock %}

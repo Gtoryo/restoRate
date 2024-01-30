@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Resultat des recherches{% endblock %}
+
+{% block body %}
+
+    {% include "_Partials/_header.html.twig" %}
+
+    <div class="pt-10">
+
+        <div class="mb-10 shadow-md text-gray-800 pb-6 ">
+            {{ form_start(restoForm, {'attr': {'class': 'flex justify-center items-center'}}) }}
+
+                {{ form_row(restoForm.codePostale, {'attr': {'class': 'w-full border border-solid border-green-500 rounded-l  pl-6 py-2 outline-none', 'placeholder': 'Code Postal'}}) }}
+                <input type="submit" class="px-4 py-2 text-white bg-green-500  border border-solid border-green-500 rounded-r"/>
+
+            {{ form_end(restoForm) }}
+        </div>
+
+        {% if restaurants %}
+
+            <h1 class="text-center text-xl font-bold pb-6 ">Les restaurants dans le {{ codePostale }}</h1>
+
+            <div class="flex flex-col p-6 items-center md:flex-row md:flex-wrap">
+
+                {% for restaurant in restaurants %}
+
+                    <div class="border m-4 w-80 rounded border-black">
+
+                        <a href="{{ path('details_resto', {'restoId': restaurant.id})}}">
+                            <div class="bg-yellow-500">
+                                 {% if restaurant.images is not empty %}
+                                    {% for image in restaurant.images %}
+                                       <div class="bg-cover bg-no-repeat  w-full flex justify-center items-center" style="background-image: url('{{ asset('assets/uploads/restaurants/mini/250x250-' ~ image.nomImage)}}')"></div>
+                                    {% endfor %}
+
+                                {% else %}
+                                    <div class="h-60 flex justify-center items-center">
+                                        <p class="text-centser">Aucune image associée</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="pt-4 px-2">
+                                <p class="text-md font-semibold pb-2">{{ restaurant.nomResto }}</p>
+                                <p class="text-sm pb-2">{{ restaurant.adresse }}, {{ restaurant.codePostale }}</p>
+                                {% if restaurant.avis is not empty %}
+                                    <div class="flex items-center pb-2">
+                                        {% for i in 1..5 %}
+                                            {% if i <= moyenne %}
+                                                <div class="star m-1 rounded-full border-2 border-solid border-green-500 w-4 h-4 bg-green-500"></div>
+                                            {% else %}
+                                                <div class="star m-1 rounded-full border-2 border-solid border-green-500 w-4 h-4"></div>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <p class="pl-2">{{moyenne}}</p>
+                                    </div>
+                                {% endif %}
+                                <p class="text-sm pb-2 font-semibold">{{ restaurant.description }}</p>
+                            </div>
+                        </a>
+                        
+                    </div>
+            
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="h-screen flex justify-center items-center">
+                <p class="text-2xl font-bold"> Aucun résultats trouvés </p>
+            </div>
+
+        {% endif %}
+    <div>
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}

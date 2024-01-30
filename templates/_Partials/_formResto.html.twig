@@ -1,0 +1,36 @@
+{{ form_start(restoForm, {'attr': {'class': 'flex w-full'}})}}
+
+    <div class="flex flex-col w-full">
+    
+        <div class="flex flex-col mb-6">
+            {{form_row(restoForm.nomResto, {'attr': {'class': 'block outline-none border rounded  border-slate-600 p-2 mt-2 w-full', 'placeholder': 'Nom'}})}}
+        </div>
+        <div class="flex flex-col mb-6">
+            {{form_row(restoForm.description, {'attr': {'class': 'block outline-none border rounded  border-slate-600 p-2 mt-2 w-full resize-none', 'placeholder': 'En quelque mots ce que vous vendez'}})}}
+        </div>
+        <div class="flex flex-col mb-6">
+            {{form_row(restoForm.adresse, {'attr': {'class': 'block outline-none border rounded  border-slate-600 p-2 mt-2 w-full', 'placeholder': '8 rue du jardin'}})}}
+        </div>
+        <div class="flex flex-col mb-6">
+            {{form_row(restoForm.codePostale, {'attr': {'class': 'block outline-none border rounded  border-slate-600 p-2 mt-2 w-full', 'placeholder': 'code Postale'}})}}
+        </div>
+        <div class="flex flex-col mb-6">
+            {{form_row(restoForm.ville, {'attr': {'class': ' block outline-none border rounded border-slate-600 p-2 mt-2 w-full', 'placeholder': 'ville'}})}}
+        </div>
+        <div class="flex flex-col mb-6">
+            {{form_row(restoForm.telephone, {'attr': {'class': 'block outline-none border rounded  border-slate-600 p-2 mt-2 w-full', 'placeholder': 'téléphone'}})}}
+        </div>
+        <div class="flex flex-col mb-6">
+            {{form_row(restoForm.webSite, {'attr': {'class': 'block outline-none border rounded  border-slate-600 p-2 mt-2 w-full', 'placeholder': 'Web site'}})}}
+        </div>
+        <div class="flex flex-col mb-6">
+            <p class="text-center text-xl font-semibold pt-4">Ajouter des images</p>
+            {{form_row(restoForm.images, {'attr': {'class': 'block outline-none pt-8 w-full'}})}}
+        </div>
+
+        <input type="submit" class="bg-black text-white rounded py-2 mt-4 w-full" value="{{ button_label|default('Ajouter') }}"/>
+
+    </div>
+    
+    
+{{ form_end(restoForm)}}

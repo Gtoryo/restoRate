@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ resto.nomResto }}{% endblock %}
+
+{% block body %}
+
+    {% include "_Partials/_header.html.twig" %}
+
+    <div class="p-8">
+        <h1 class="text-2xl font-semibold">{{ resto.nomResto }}</h1>
+        <p>{{ resto.adresse}}, {{resto.ville}}</p>
+        
+        <div class="pt-4">
+            <p>{{ resto.description }}</p>
+        </div>
+        
+        <div class="pt-6">
+            <h2 class="text-xl font-semibold">Galerie d'images</h2>
+            <div class="flex space-x-4">
+                {% for image in images %}
+                     <img src="{{ asset('assets/uploads/restaurants/mini/250x250-' ~ image.nomImage)}}" alt="Image" class="m-4" width="150"/>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="flex justify-around border py-4">
+            <div>
+                <a class="font-semibold" href="tel:{resto.telephone}">Appeler</a>
+            </div>
+            <div>
+                <a class="font-semibold" href="{{ path('app_avis', {'restoId': resto.id})}}">Avis</a>
+            </div>
+            {% if resto.webSite %}
+                <div>
+                    <a class="font-semibold" href="{resto.webSite}">Site web</a>
+                </div>
+            {% else %}
+                <p>Aucun site web</p>   
+            {% endif %}
+        </div>
+        
+        <div class="mt-8">
+
+            <h2 class="font-semibold text-xl pb-4">Note moyenne</h2>
+            <div class="flex justify-between items-center px-4 py-6 border">
+                <div>
+                    <div class="flex items-center">
+                        {% for i in 1..5 %}
+                            {% if i <= moyenne %}
+                                <div class="star m-2 rounded-full border-2 border-solid border-green-500 w-6 h-6 bg-green-500"></div>
+                            {% else %}
+                                <div class="star m-2 rounded-full border-2 border-solid border-green-500 w-6 h-6"></div>
+                            {% endif %}
+                        {% endfor %}
+                        <p>{{ moyenne }}/5</p>
+                    </div>
+                </div>
+                <div>
+                    <a href="{{ path('app_avis', {'restoId': resto.id}) }}" class="text-center p-2 border text-white bg-green-500 rounded">Donner un avis</a>
+                </div>
+            </div>
+
+            <h3 class="py-4 text-xl font-semibold">Avis utilisateurs</h3>
+            <div class="h-screen">
+                {% if avis|length > 0 %}
+                    {% for avs in avis %}
+                        <div class="border p-4 mb-4">
+                            <p class="pb-4">{{ avs.user.nom }} {{ avs.user.prenom}}</p>
+                            <div class="flex items-center pb-2">
+                                {% for i in 1..5 %}
+                                    {% if i <= avs.note %}
+                                        <div class="star m-1 rounded-full border-2 border-solid border-green-500 w-4 h-4 bg-green-500"></div>
+                                    {% else %}
+                                        <div class="star m-1 rounded-full border-2 border-solid border-green-500 w-4 h-4"></div>
+                                    {% endif %}
+                                {% endfor %}
+                                <span class="text-xs pl-2">Ecrit le {{avs.createdAt|date("d-m-y")}}</span>
+                            </div>
+                            <p class="pb-4 font-semibold">{{ avs.titre }}</p>
+                            <p class="pb-4">{{ avs.commentaire }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucun avis pour ce restaurant</p>
+                {% endif %}
+            </div>
+        </div> 
+    </div>
+
+    {% include "_Partials/_footer.html.twig" %}
+
+{% endblock %}
